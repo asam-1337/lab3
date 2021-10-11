@@ -7,7 +7,7 @@
 
 namespace PCB_1
 {
-
+    PCB::PCB() {}
     int PCB::create_contact(bool type, double x, double y)
     {
         for (auto & i : arr)
@@ -15,7 +15,7 @@ namespace PCB_1
             if (!i.exist)
             {
                 i.exist = true;
-                i.type = true;
+                i.type = type;
                 i.x = x;
                 i.y = y;
                 return 0;

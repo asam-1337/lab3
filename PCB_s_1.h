@@ -27,7 +27,9 @@ namespace PCB_1 {
         static const int sz = 10;
         contact arr[sz];
     public:
-        PCB(){}
+        PCB();
+        int getSZ() const {return sz;}
+        contact * getARR() {return arr;}
         int create_contact(bool type, double x, double y);
         int establish_connect(int name1, int name2);
         int add_contact(const contact & src);
