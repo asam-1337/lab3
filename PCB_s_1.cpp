@@ -7,19 +7,15 @@
 
 namespace PCB_1
 {
-    PCB::PCB() {}
-    int PCB::create_contact(bool type, double x, double y)
+    int PCB::create_contact(bool type, int x, int y)
     {
-        for (auto & i : arr)
-        {
-            if (!i.exist)
-            {
-                i.exist = true;
-                i.type = type;
-                i.x = x;
-                i.y = y;
-                return 0;
-            }
+        if (curr_sz < sz) {
+            arr[curr_sz].exist = true;
+            arr[curr_sz].type = type;
+            arr[curr_sz].x = x;
+            arr[curr_sz].y = y;
+            curr_sz++;
+            return 0;
         }
         return 1;
     }
@@ -37,30 +33,22 @@ namespace PCB_1
     }
     int PCB::add_contact(const contact &src)
     {
-        for (int i = 0; i < sz; i++) {
-            if (!arr[i].exist) {
-                arr[i].exist = src.exist;
-                arr[i].type = src.type;
-                arr[i].connect = src.connect;
-                arr[i].x = src.x;
-                arr[i].y = src.y;
-                return 0;
-            }
+        if (curr_sz < sz) {
+            arr[curr_sz] = src;
+            return 0;
         }
         return 1;
     }
 
-    int PCB::correction_check(int name1, int name2)
+    int PCB::correction_check(int name1, int name2) const
     {
         if (arr[name1].exist && arr[name2].exist)
-            if ((arr[name1].type && !arr[name2].type)
-            || (!arr[name1].type && arr[name2].type))
+            if (arr[name1].type != arr[name2].type)
                 return 0;
         return 1;
-
     }
 
-    int PCB::get_track_length(int name1, int name2)
+    int PCB::get_track_length(int name1, int name2) const
     {
         if (!correction_check(name1, name2))
         {
@@ -70,19 +58,22 @@ namespace PCB_1
         return 1;
     }
 
-    void PCB::select_group(int type)
+    PCB & PCB::select_group(int type) const
     {
         int j = 0;
-        contact tmp[10];
-        for (int i = 0; i < sz && arr[i].exist; i++)
-            if (arr[i].type = type) {
-                tmp[j] = arr[i];
+        static PCB plate;
+
+        for (int i = 0; i < sz && this->arr[i].exist; i++)
+            if (this->arr[i].type == type)
+            {
+                plate.arr[j] = this->arr[i];
                 j++;
             }
-        print(std::cout);
+
+        return plate;
     }
 
-    std::ostream & PCB::print(std::ostream & buff)
+    std::ostream & PCB::print(std::ostream & buff) const
     {
         buff << "number\t|\ttype\t|\tconnect\t|\tcoords" << std:: endl;
         for (int i = 0; arr[i].exist && i < sz; i++)

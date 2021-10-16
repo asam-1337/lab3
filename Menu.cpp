@@ -45,6 +45,7 @@ void d_create_contact(PCB &plate)
 void d_add_contact(PCB &plate)
 {
     contact cnt;
+    cnt.exist = true;
     cout << "enter type: ";
     get_num(cnt.type);
     cout << "enter x: ";
@@ -60,7 +61,7 @@ void d_select_group(PCB plate)
     bool type;
     cout << "enter type: ";
     get_num(type);
-    plate.select_group(type);
+    plate.select_group(type).print(cout);
 }
 
 int dialog()

@@ -11,8 +11,8 @@ namespace PCB_1 {
         bool exist;
         bool type; //F - out, T - in
         int connect;
-        double x;
-        double y;
+        int x;
+        int y;
         contact(){
             exist = false;
             type = false;
@@ -20,23 +20,34 @@ namespace PCB_1 {
             x = 0;
             y = 0;
         }
+        contact(bool v_type, int v_x, int v_y) {
+            exist = true;
+            type = v_type;
+            connect = -1;
+            x = v_x;
+            y =v_y;
+        }
     };
 
     class PCB {
-    public:
+    private:
         static const int sz = 10;
+        int curr_sz;
         contact arr[sz];
     public:
-        PCB();
-        int getSZ() const {return sz;}
+        PCB() : curr_sz(0) {};
+
+        static int getSZ() {return sz;}
         contact * getARR() {return arr;}
-        int create_contact(bool type, double x, double y);
+
+        int create_contact(bool type, int x, int y);
         int establish_connect(int name1, int name2);
         int add_contact(const contact & src);
-        int correction_check(int name1, int name2);
-        int get_track_length(int name1, int name2);
-        void select_group(int type);
-        std::ostream & print(std::ostream& buff);
+
+        int correction_check(int name1, int name2) const;
+        int get_track_length(int name1, int name2) const;
+        PCB & select_group(int type) const;
+        std::ostream & print(std::ostream& buff) const;
     };
 }
 #endif //LAB3_PCB_S_1_H
