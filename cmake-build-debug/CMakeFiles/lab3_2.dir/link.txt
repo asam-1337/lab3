@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/lab3_2.dir/main.cpp.o CMakeFiles/lab3_2.dir/PCB_s_2.cpp.o CMakeFiles/lab3_2.dir/menu.cpp.o -o lab3_2 
