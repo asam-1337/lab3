@@ -13,20 +13,16 @@ namespace PCB_1 {
         int connect;
         int x;
         int y;
-        contact(){
+
+        contact() {
             exist = false;
             type = false;
             connect = -1;
             x = 0;
             y = 0;
         }
-        contact(bool v_type, int v_x, int v_y) {
-            exist = true;
-            type = v_type;
-            connect = -1;
-            x = v_x;
-            y =v_y;
-        }
+        contact(bool v_type, int v_x = 1, int v_y = 1)
+            : exist (true), type(v_type), connect(-1), x(v_x), y(v_y) {}
     };
 
     class PCB {
@@ -35,7 +31,7 @@ namespace PCB_1 {
         int curr_sz;
         contact arr[sz];
     public:
-        PCB() : curr_sz(0) {};
+        PCB() : curr_sz(0) {}
 
         static int getSZ() {return sz;}
         contact * getARR() {return arr;}

@@ -85,6 +85,7 @@ namespace PCB_1
             << "\t\t|\t" << "(" << arr[i].x << ", " << arr[i].y << ")"
             << std::endl;
         }
+
         return buff;
     }
 }
